@@ -17,7 +17,7 @@ port = params =
 americano.start params, (app, server) ->
     realtime = RealtimeAdapter server: server, ['konnector.update']
 
-    initKonnectors (err) ->
+    initKonnectors app, (err) ->
         if err
             log.error "An error occured."
             log.error "Konnectors were not properly initialized."
