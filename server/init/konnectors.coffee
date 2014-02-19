@@ -1,6 +1,8 @@
 path = require 'path'
 fs = require 'fs'
-log = require('printit')()
+log = require('printit')
+    prefix: 'Konnectors'
+    date: true
 
 Konnector = require '../models/konnector'
 
