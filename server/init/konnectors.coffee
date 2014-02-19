@@ -41,11 +41,13 @@ createKonnector = (konnector, callback) ->
 
 # Update given konnector infos with module data
 updateKonnector = (konnector, callback) ->
-    Konnector.find konnector.id, (err,  konnectorInstance) ->
+    Konnector.request 'bySlug', key: konnector.slug, (err,  konnectors) ->
         if err then callback err
-        else if not konnectorInstance?
-            log.warn "Konnector #{konnector.name} cannot be updated"
+        else if not konnectors.length is 0
+                log.warn "Konnector #{konnector.name} cannot be updated"
+            callback()
         else
+            konnectorInstance = konnectors[0]
             konnector.init (err) ->
                 if err
                     callback err
@@ -77,7 +79,7 @@ module.exports = (app, callback) ->
                 else
                     konnectorsToCreate.push konnectorModule
 
-                if konnectorModule.type? is 'oauth'
+                if konnectorModule.type is 'oauth'
                     konnectorModule.configOAuthCallback app
 
             recCreate = ->
@@ -87,7 +89,7 @@ module.exports = (app, callback) ->
                         if err then recUpdate()
                         else recCreate()
                 else
-                    callback null
+                    recUpdate()
 
             recUpdate = ->
                 if konnectorsToUpdate.length > 0

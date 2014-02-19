@@ -33,7 +33,6 @@ module.exports =
 
     fields:
         login: "text"
-        yop: "text"
         password: "password"
 
     models:
@@ -41,11 +40,6 @@ module.exports =
         sleeps: WithingsSleep
 
     modelNames: ['WithingsMove', 'WithingsSleep']
-
-    oauthPath: 'withings'
-    oauthController: (req, res) ->
-        log.debug "Oauth callback called"
-
 
     # Define model requests.
     init: (callback) ->
