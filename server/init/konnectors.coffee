@@ -44,7 +44,7 @@ updateKonnector = (konnector, callback) ->
     Konnector.request 'bySlug', key: konnector.slug, (err,  konnectors) ->
         if err then callback err
         else if not konnectors.length is 0
-                log.warn "Konnector #{konnector.name} cannot be updated"
+            log.warn "Konnector #{konnector.name} cannot be updated"
             callback()
         else
             konnectorInstance = konnectors[0]
